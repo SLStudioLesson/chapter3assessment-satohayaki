@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.com.recipeapp.datahandler.CSVDataHandler;
+import main.java.com.recipeapp.datahandler.DataHandler;
+
 public class RecipeUI {
     private BufferedReader reader;
     private DataHandler dataHandler;
@@ -33,10 +36,22 @@ public class RecipeUI {
 
                 switch (choice) {
                     case "1":
+                    CSVDataHandler csvData1 = new CSVDataHandler();
+                RecipeUI recipeUI = new RecipeUI(csvData1);
+                recipeUI.displayMenu();
+                csvData1.getMode();
+                csvData1.readData();
+
                         break;
                     case "2":
+                    JSONDataHandler jsonData = new JSONDataHandler();
+                RecipeUI recipeUI2 = new RecipeUI(jsonData);
+                recipeUI2.displayMenu();
                         break;
                     case "3":
+                    CSVDataHandler csvData2 = new CSVDataHandler();
+                RecipeUI recipeUI3 = new RecipeUI(csvData2);
+                recipeUI3.displayMenu();
                         break;
                     case "4":
                         System.out.println("Exiting the application.");
@@ -50,4 +65,14 @@ public class RecipeUI {
             }
         }
     }
+
+    private void displayRecipes() {
+        try {
+            DataHandler dataHandler = new DataHandler();
+            
+        } catch(IOException e) {
+            System.out.println("Error reading file: " + e.printStackTrace().toString);
+        }
+    }
 }
+
