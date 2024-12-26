@@ -1,13 +1,14 @@
 import java.security.Key;
+import java.util.ArrayList;
 
 public class JSONDataHandler implements DataHandler{
     
 
-    public getMode() {
+    public String getMode() {
         return "JSON";
     }
 
-    public readData() {
+    public ArrayList<Recipe> readData() {
         return null;
     }
 
@@ -15,7 +16,7 @@ public class JSONDataHandler implements DataHandler{
 
     }
 
-    public searchData() {
+    public ArrayList<Recipe> searchData() {
         return null;
     }
 }

@@ -2,22 +2,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import Recipe;
 public interface DataHandler {
-    public String getMode(); //{
-        // return null;
-    // }
+    
+    public String getMode();
 
-    public ArrayList<Recipe> readData(); {
-        try{
-            ArrayList<Recipe> recipe = new ArrayList<>();
-            // recipe.getIngredients;
-            return recipe;
-        } catch(IOException e) {
-        }
-    }
+    public ArrayList<Recipe> readData();
 
-        public void writeData(Recipe recipe);
+    public void writeData(Recipe recipe);
 
-        public ArrayList<Recipe> searchData(); //{
+    public ArrayList<Recipe> searchData(String keyword);
             // try {
                 // ArrayList<Recipe> recipes = new ArrayList<>();
                 // recipes.getIngredients;
