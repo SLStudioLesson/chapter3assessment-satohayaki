@@ -9,7 +9,7 @@ public interface DataHandler {
 
     public void writeData(Recipe recipe);
 
-    public ArrayList<Recipe> searchData(String keyword);
+    public ArrayList<Recipe> searchData();
             // try {
                 // ArrayList<Recipe> recipes = new ArrayList<>();
                 // recipes.getIngredients;
