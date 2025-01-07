@@ -1,3 +1,5 @@
+package com.recipeapp.datahandler;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -5,7 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import Ingredient;
+
+import com.recipeapp.model.Recipe;
+import com.recipeapp.model.Ingredient;
+
 
 public class CSVDataHandler implements DataHandler{
     private String filePath;
@@ -29,17 +34,17 @@ public class CSVDataHandler implements DataHandler{
                 String line;
                 //行がなくなるまで読み取る
             while ((line = reader.readLine()) != null) {
-                //1行を、","で分けた配列recipeを作る
-                String[] recipe = line.split(",");
+                //1行を、","で分けた配列strを作る
+                String[] str = line.split(",");
                 //Ingredient型のArrayList,ingredientsを作成
                 ArrayList<Ingredient> ingredients = new ArrayList<>();
-                //recipe[0]を除いた全て(材料)をingredientsに追加
-                for(int i = 1 ; i < recipe.length; i++) {
-                    Ingredient ingredient = new Ingredient(recipe[i]);
+                //str[0]を除いた全て(材料)をingredientsに追加
+                for(int i = 1 ; i < str.length; i++) {
+                    Ingredient ingredient = new Ingredient(str[i]);
                     ingredients.add(ingredient);
                 }
-                //レシピの名前recipe[0],ingredientを引数とした、Recipe型の変数recipe2を宣言
-                Recipe recipe2 = new Recipe(recipe[0],ingredients);
+                //レシピの名前str[0],ingredientを引数とした、Recipe型の変数recipe2を宣言
+                Recipe recipe2 = new Recipe(str[0],ingredients);
                 //あらかじめ作っておいたrecipesにrecipe2を追加
                 recipes.add(recipe2);
                 //これを行が読み取れなくなるまで繰り返す
@@ -52,10 +57,15 @@ public class CSVDataHandler implements DataHandler{
     }
 
     public void writeData(Recipe recipe) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
+        //trueにすることで中身を追記するように
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            //引数にしたレシピの料理名をgetNameで取り出す
             writer.write(recipe.getName());
+            //材料のingredientsリストを作成
             ArrayList<Ingredient> ingredients = new ArrayList<>();
+            //ingredientsに引数recipeからgetIngredientsで材料のリストを取り出す。
             ingredients = recipe.getIngredients();
+            //取り出した中身を拡張for文で全て取り出し、書きこむ
             for(Ingredient ingredient : ingredients) {
                 writer.write("," + ingredient.getName());
             }

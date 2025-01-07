@@ -1,8 +1,11 @@
+
 import com.recipeapp.datahandler.CSVDataHandler;
 import com.recipeapp.datahandler.DataHandler;
 import com.recipeapp.datahandler.JSONDataHandler;
 import com.recipeapp.ui.RecipeUI;
 import java.io.*;
+import com.recipeapp.model.Recipe;
+import com.recipeapp.model.Ingredient;
 
 public class App {
 
@@ -15,15 +18,20 @@ public class App {
             System.out.print("Select (1/2): ");
             String choice = reader.readLine();
             DataHandler handler;
+            //1が入力された場合
             if(choice.equals("1")) {
                 handler = new CSVDataHandler();
                 RecipeUI recipeUI = new RecipeUI(handler);
                 recipeUI.displayMenu();
-            }else if(choice.equals("2")) {
+
+            }//2が入力された場合
+            else if(choice.equals("2")) {
                 handler = new JSONDataHandler();
                 RecipeUI recipeUI = new RecipeUI(handler);
                 recipeUI.displayMenu();
-            }else {
+            }else
+            //それ以外の場合場合
+            {
                 handler = new CSVDataHandler();
                 RecipeUI recipeUI = new RecipeUI(handler);
                 recipeUI.displayMenu();

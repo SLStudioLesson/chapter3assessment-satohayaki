@@ -1,25 +1,17 @@
+package com.recipeapp.datahandler;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import Recipe;
+import com.recipeapp.model.Recipe;
+
 public interface DataHandler {
     
     public String getMode();
 
-    public ArrayList<Recipe> readData();
+    public ArrayList<Recipe> readData()throws IOException;
 
-    public void writeData(Recipe recipe);
+    public void writeData(Recipe recipe)throws IOException;
 
-    public ArrayList<Recipe> searchData();
-            // try {
-                // ArrayList<Recipe> recipes = new ArrayList<>();
-                // recipes.getIngredients;
-                // for(Recipe resipe : recipes)
-                // if((String)recipe.equals(keyword)){
-                    // System.out.println(re);
-                // }
-            // } catch (IOException e) {
+    public ArrayList<Recipe> searchData()throws IOException;
 
-            // }
-        // }
-    // }
 }

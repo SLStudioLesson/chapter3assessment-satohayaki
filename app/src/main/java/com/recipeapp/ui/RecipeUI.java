@@ -8,9 +8,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.recipeapp.datahandler.CSVDataHandler;
-import com.recipeapp.datahandler.DataHandler;
-import ingredient;
+import com.recipeapp.model.Recipe;
+import com.recipeapp.model.Ingredient;
+import com.recipeapp.dataHandler.CSVDataHandler;
+import com.recipeapp.dataHandler.JSONDataHandler;
+import com.recipeapp.dataHandler.DataHandler;
+// import com.recipeapp.datahandler.CSVDataHandler;
+// import com.recipeapp.datahandler.DataHandler;
+// import ingredient;
 
 public class RecipeUI {
     private BufferedReader reader;
@@ -67,40 +72,52 @@ public class RecipeUI {
                     System.out.println("No recipes available.");
                     return;
                 }
+                System.out.println(recipes.size());
                 System.out.println("Recipes:");
                 System.out.println("------------------------------");
                 for (Recipe recipe: recipes) {
                     System.out.println("Recipe Name: " + recipe.getName());
-                    for(Ingredient ingredient : recipe.getIngredients()) {
-                        System.out.print("Main Ingredients: " + ingredient.getName());
+                    ArrayList<Ingredient> ingredients = new ArrayList<>();
+                    ingredients = recipe.getIngredients();
+                    System.out.println();
+                    System.out.print("main Ingredients:");
+                    for(Ingredient ingredient : ingredients) {
+                        System.out.print(ingredient.getName());
                     }
+                    System.out.println();
                     System.out.println("------------------------------");
                 }
             
             
         } catch(IOException e) {
-            System.out.println("Error reading file: " + e.printStackTrace().toString);
+            System.out.println("Error reading file: " + e.getMessage());
         }
     }
 
     private void addNewRecipe() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter recipe name: ");
-        String recipeName = reader.readLine();
-        System.out.println("Enter ingredients (type 'done' when finished): ");
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
-        while(true) {
-            String ingredientsName = reader.readLine();
-            if(ingredientsName.equals("done")) {
-                break;
+        try{
+            reader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Enter recipe name: ");
+            String recipeName = reader.readLine();
+            System.out.println("Enter ingredients (type 'done' when finished): ");
+            ArrayList<Ingredient> ingredients = new ArrayList<>();
+            while(true) {
+                String ingredientsName = reader.readLine();
+                if(ingredientsName.equals("done")) {
+                    break;
+                }
+                Ingredient ingredient = new Ingredient(ingredientsName);
+                ingredients.add(ingredient);
             }
-            Ingredient ingredient = new Ingredient(ingredientsName);
-            ingredients.add(ingredient);
+            Recipe recipe = new Recipe(recipeName, ingredients);
+    
+            dataHandler.writeData(recipe);
+    
+            System.out.println("Recipe added successfully.");
+    
+        } catch(IOException e) {
+            e.printStackTrace();
         }
-        Recipe recipe = new Recipe(recipeName, ingredients);
-
-        dataHandler.writeData(recipe);
-
     }
 }
 
